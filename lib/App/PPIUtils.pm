@@ -108,7 +108,8 @@ sub sort_perl_subs {
     my $sortsub_routine = $args{sort_sub} // 'asciibetically';
     my $sortsub_args    = $args{sort_args} // {};
 
-    my $doc = PPI::Document->new($args{filename});
+    my $source = read_text($args{filename});
+    my $doc = PPI::Document->new(\$source);
     my ($sorter, $sorter_meta) =
         Sort::Sub::get_sorter($sortsub_routine, $sortsub_args, 'with meta');
     _sort($doc, $sorter, $sorter_meta);
@@ -139,7 +140,7 @@ L<PPI>:
 #INSERT_EXECS_LIST
 
 
-=head1 append:SEE ALSO
+=head1 SEE ALSO
 
 L<PPI>
 
